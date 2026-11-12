@@ -5,6 +5,44 @@ Module: Main Application
 
 from student import Student
 
+def add_student(
+    students: list,
+    student_id: str,
+    name: str,
+    age: int,
+    grade: str
+) -> list:
+    """Thêm sinh viên mới, kiểm tra trùng mã trước khi thêm."""
+    for s in students:
+        if s.student_id == student_id:
+            print(f"❌ Mã sinh viên {student_id} đã tồn tại!")
+            return students
+
+    new_student = Student(student_id, name, age, grade)
+    students.append(new_student)
+    print(f"Đã thêm sinh viên: {new_student}")
+    return students
+
+def search_student(students: list, keyword: str) -> list:
+    """Tìm kiếm sinh viên theo tên hoặc mã, không phân biệt hoa thường."""
+    results = []
+    keyword_lower = keyword.lower()
+
+    for s in students:
+        if (
+            keyword_lower in s.name.lower()
+            or keyword_lower in s.student_id.lower()
+        ):
+            results.append(s)
+
+    if results:
+        print(f"🔍 Tìm thấy {len(results)} sinh viên với từ khóa '{keyword}':")
+        for s in results:
+            print(f"  {s}")
+    else:
+        print(f"❌ Không tìm thấy sinh viên nào với từ khóa '{keyword}'")
+
+    return results
 
 def main():
     """Hàm chính của ứng dụng."""
@@ -18,11 +56,17 @@ def main():
         Student("SV003", "Le Van C", 19, "K21"),
     ]
 
+    students = add_student(students, "SV004", "Pham Thi D", 22, "K19")
+
     for student in students:
         print(f"  {student}")
 
     print(f"\nTotal: {len(students)} students")
 
+    print("\n--- Tìm kiếm ---")
+    search_student(students, "Van")
+
 
 if __name__ == "__main__":
     main()
+    
