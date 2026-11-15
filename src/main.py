@@ -5,6 +5,7 @@ Module: Main Application
 
 from student import Student
 
+
 def add_student(
     students: list,
     student_id: str,
@@ -12,10 +13,10 @@ def add_student(
     age: int,
     grade: str
 ) -> list:
-    """Thêm sinh viên mới, kiểm tra trùng mã trước khi thêm."""
+    """Thêm sinh viên mới, kiểm tra trùng mã."""
     for s in students:
         if s.student_id == student_id:
-            print(f"❌ Mã sinh viên {student_id} đã tồn tại!")
+            print(f"Mã sinh viên {student_id} đã tồn tại!")
             return students
 
     new_student = Student(student_id, name, age, grade)
@@ -23,8 +24,9 @@ def add_student(
     print(f"Đã thêm sinh viên: {new_student}")
     return students
 
+
 def search_student(students: list, keyword: str) -> list:
-    """Tìm kiếm sinh viên theo tên hoặc mã, không phân biệt hoa thường."""
+    """Tìm kiếm theo tên hoặc mã, không phân biệt hoa thường."""
     results = []
     keyword_lower = keyword.lower()
 
@@ -36,13 +38,14 @@ def search_student(students: list, keyword: str) -> list:
             results.append(s)
 
     if results:
-        print(f"🔍 Tìm thấy {len(results)} sinh viên với từ khóa '{keyword}':")
+        print(f"Tìm thấy {len(results)} sinh viên với từ khóa '{keyword}':")
         for s in results:
             print(f"  {s}")
     else:
-        print(f"❌ Không tìm thấy sinh viên nào với từ khóa '{keyword}'")
+        print(f"Không tìm thấy sinh viên với từ khóa '{keyword}'")
 
     return results
+
 
 def main():
     """Hàm chính của ứng dụng."""
@@ -56,7 +59,9 @@ def main():
         Student("SV003", "Le Van C", 19, "K21"),
     ]
 
-    students = add_student(students, "SV004", "Pham Thi D", 22, "K19")
+    students = add_student(
+        students, "SV004", "Pham Thi D", 22, "K19"
+    )
 
     for student in students:
         print(f"  {student}")
@@ -69,4 +74,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
